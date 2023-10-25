@@ -1,0 +1,28 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: clone of Postgres application database
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: customers
+        description: raw customers data
+        columns:
+          - name: id
+            description: primary key for the raw customers data
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        description: raw customers data
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: user_id
+            tests:
+              - relationships:
+                  to: source('jaffle_shop', 'customers')
+                  field: id
